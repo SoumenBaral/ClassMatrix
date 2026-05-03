@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'openai' => [
+        'model' => env('OPENAI_MODEL', 'gpt-4o'),
+        'chat_model' => env('OPENAI_CHAT_MODEL', 'gpt-4o-mini'),
+        'max_tokens' => 4096,
+    ],
+
 ];

@@ -1,6 +1,36 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-vue-next';
+import { Link, usePage } from '@inertiajs/vue3';
+import {
+    Award,
+    BadgeDollarSign,
+    Bell,
+    BookOpen,
+    BookText,
+    Box,
+    Briefcase,
+    Building,
+    Building2,
+    Bus,
+    Calendar,
+    CalendarDays,
+    CircleHelp,
+    ClipboardCheck,
+    ClipboardList,
+    Clock,
+    CreditCard,
+    FileText,
+    GraduationCap,
+    LayoutGrid,
+    Layers,
+    Library,
+    NotebookPen,
+    PenLine,
+    Receipt,
+    Settings,
+    TreePalm,
+    Users,
+    Wallet,
+} from 'lucide-vue-next';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
@@ -14,29 +44,70 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
+const page = usePage();
+const user = page.props.auth?.user;
+
+const academicNavItems: NavItem[] = [
+    { title: 'Dashboard', href: '/admin/dashboard', icon: LayoutGrid },
+    { title: 'Academic Years', href: '/admin/academic-years', icon: Calendar },
+    { title: 'Classes & Sections', href: '/admin/classes', icon: Layers },
+    { title: 'Subjects', href: '/admin/subjects', icon: BookOpen },
+    { title: 'Departments', href: '/admin/departments', icon: Building2 },
+];
+
+const dailyOpsNavItems: NavItem[] = [
+    { title: 'Attendance', href: '/admin/attendance', icon: ClipboardCheck },
+    { title: 'Attendance Report', href: '/admin/attendance/report', icon: ClipboardCheck },
+    { title: 'Periods', href: '/admin/periods', icon: Clock },
+    { title: 'Timetable', href: '/admin/timetable', icon: CalendarDays },
+];
+
+const examNavItems: NavItem[] = [
+    { title: 'Exams', href: '/admin/exams', icon: ClipboardList },
+    { title: 'Marks Entry', href: '/admin/marks', icon: PenLine },
+    { title: 'Results', href: '/admin/results', icon: FileText },
+    { title: 'Grade Schemes', href: '/admin/grades', icon: Award },
+];
+
+const financeNavItems: NavItem[] = [
+    { title: 'Fee Structure', href: '/admin/fees', icon: BadgeDollarSign },
+    { title: 'Invoices', href: '/admin/invoices', icon: Receipt },
+    { title: 'Payroll', href: '/admin/payroll', icon: Wallet },
+    { title: 'Salary Structures', href: '/admin/salary-structures', icon: CreditCard },
+    { title: 'Leaves', href: '/admin/leaves', icon: TreePalm },
+];
+
+const learningNavItems: NavItem[] = [
+    { title: 'Lessons', href: '/admin/lessons', icon: BookText },
+    { title: 'Assignments', href: '/admin/assignments', icon: NotebookPen },
+    { title: 'Quizzes', href: '/admin/quizzes', icon: CircleHelp },
+];
+
+const communicationNavItems: NavItem[] = [
+    { title: 'Notices', href: '/admin/notices', icon: Bell },
+    { title: 'Calendar', href: '/admin/calendar', icon: Calendar },
+];
+
+const auxiliaryNavItems: NavItem[] = [
+    { title: 'Library', href: '/admin/library', icon: Library },
+    { title: 'Book Issues', href: '/admin/library/issues', icon: BookOpen },
+    { title: 'Transport', href: '/admin/transport', icon: Bus },
+    { title: 'Hostel', href: '/admin/hostel', icon: Building },
+    { title: 'Inventory', href: '/admin/inventory', icon: Box },
+];
+
+const managementNavItems: NavItem[] = [
+    { title: 'Students', href: '/admin/students', icon: GraduationCap },
+    { title: 'Staff', href: '/admin/staff', icon: Users },
 ];
 
 const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: FolderGit2,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
-    },
+    { title: 'Settings', href: '/settings/profile', icon: Settings },
 ];
+
+const dashboardHref = user?.user_type === 'admin' ? '/admin/dashboard' : '/dashboard';
 </script>
 
 <template>
@@ -45,7 +116,7 @@ const footerNavItems: NavItem[] = [
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="dashboard()">
+                        <Link :href="dashboardHref">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>
@@ -54,7 +125,14 @@ const footerNavItems: NavItem[] = [
         </SidebarHeader>
 
         <SidebarContent>
-            <NavMain :items="mainNavItems" />
+            <NavMain :items="academicNavItems" label="Academic" />
+            <NavMain :items="dailyOpsNavItems" label="Daily Operations" />
+            <NavMain :items="examNavItems" label="Examinations" />
+            <NavMain :items="financeNavItems" label="Finance & HR" />
+            <NavMain :items="learningNavItems" label="Online Learning" />
+            <NavMain :items="auxiliaryNavItems" label="Auxiliary" />
+            <NavMain :items="communicationNavItems" label="Communication" />
+            <NavMain :items="managementNavItems" label="Management" />
         </SidebarContent>
 
         <SidebarFooter>
