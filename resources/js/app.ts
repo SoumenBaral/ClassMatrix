@@ -2,6 +2,9 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { initializeTheme } from '@/composables/useAppearance';
 import AppLayout from '@/layouts/AppLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
+import StudentLayout from '@/layouts/StudentLayout.vue';
+import TeacherLayout from '@/layouts/TeacherLayout.vue';
+import ParentLayout from '@/layouts/ParentLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { initializeFlashToast } from '@/lib/flashToast';
 
@@ -19,6 +22,12 @@ createInertiaApp({
                 return [AppLayout, SettingsLayout];
             case name.startsWith('admin/'):
                 return AppLayout;
+            case name.startsWith('student/'):
+                return StudentLayout;
+            case name.startsWith('teacher/'):
+                return TeacherLayout;
+            case name.startsWith('parent/'):
+                return ParentLayout;
             default:
                 return AppLayout;
         }

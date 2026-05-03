@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
 </script>
 
 <template>
-    <div
-        class="flex aspect-square size-8 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground"
-    >
-        <AppLogoIcon class="size-5 fill-current text-white dark:text-black" />
+    <div class="flex size-8 items-center justify-center rounded-lg overflow-hidden">
+        <img src="/logo.png" alt="ClassMatrix" class="size-8 object-cover" />
     </div>
-    <div class="ml-1 grid flex-1 text-left text-sm">
-        <span class="mb-0.5 truncate leading-tight font-semibold"
-            >ClassMatrix</span
-        >
+    <div class="ml-1.5 grid flex-1 text-left text-sm">
+        <span class="truncate leading-tight font-bold text-gradient">ClassMatrix</span>
+        <span class="truncate text-[10px] leading-tight text-sidebar-foreground/60">Manage. Connect. Succeed</span>
     </div>
 </template>

@@ -100,7 +100,10 @@ const auxiliaryNavItems: NavItem[] = [
 
 const managementNavItems: NavItem[] = [
     { title: 'Students', href: '/admin/students', icon: GraduationCap },
-    { title: 'Staff', href: '/admin/staff', icon: Users },
+    { title: 'Teachers & Staff', href: '/admin/staff', icon: Briefcase },
+    { title: 'Parents', href: '/admin/parents', icon: Users },
+    { title: 'Parent Links', href: '/admin/parent-links', icon: Users },
+    { title: 'All Users', href: '/admin/users', icon: Users },
 ];
 
 const footerNavItems: NavItem[] = [

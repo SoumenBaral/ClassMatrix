@@ -13,9 +13,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
         if ($user->isAdmin()) {
             return redirect()->route('admin.dashboard');
         }
+        if ($user->isStudent()) {
+            return redirect()->route('student.dashboard');
+        }
+        if ($user->isTeacher()) {
+            return redirect()->route('teacher.dashboard');
+        }
+        if ($user->isParent()) {
+            return redirect()->route('parent.dashboard');
+        }
         return \Inertia\Inertia::render('Dashboard');
     })->name('dashboard');
 });
 
 require __DIR__.'/settings.php';
 require __DIR__.'/admin.php';
+require __DIR__.'/student.php';
+require __DIR__.'/teacher.php';
+require __DIR__.'/parent.php';

@@ -55,4 +55,12 @@ class Student extends Model
     {
         return $this->hasMany(Mark::class);
     }
+
+    // Student → parent users
+    public function parents(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'parent_student', 'student_id', 'parent_id')
+            ->withPivot('relation', 'is_primary')
+            ->withTimestamps();
+    }
 }

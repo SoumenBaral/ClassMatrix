@@ -25,10 +25,43 @@ use App\Http\Controllers\Admin\TransportController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TimetableController;
+use App\Http\Controllers\Admin\ParentLinkController;
+use App\Http\Controllers\Admin\ParentUserController;
+use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
+
+    // User Management (Admin creates teachers, Super Admin creates admins)
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::post('users', [UserController::class, 'store'])->name('users.store');
+    Route::post('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
+    Route::post('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
+
+    // Student Management
+    Route::get('students', [StudentController::class, 'index'])->name('students.index');
+    Route::post('students', [StudentController::class, 'store'])->name('students.store');
+    Route::put('students/{student}', [StudentController::class, 'update'])->name('students.update');
+    Route::delete('students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
+
+    // Staff/Teacher Management
+    Route::get('staff', [StaffController::class, 'index'])->name('staff.index');
+    Route::post('staff', [StaffController::class, 'store'])->name('staff.store');
+    Route::put('staff/{staff}', [StaffController::class, 'update'])->name('staff.update');
+    Route::delete('staff/{staff}', [StaffController::class, 'destroy'])->name('staff.destroy');
+
+    // Parent Management
+    Route::get('parents', [ParentUserController::class, 'index'])->name('parents.index');
+    Route::put('parents/{user}', [ParentUserController::class, 'update'])->name('parents.update');
+    Route::delete('parents/{user}', [ParentUserController::class, 'destroy'])->name('parents.destroy');
+
+    // Parent-Student Linking
+    Route::get('parent-links', [ParentLinkController::class, 'index'])->name('parent-links.index');
+    Route::post('parent-links', [ParentLinkController::class, 'link'])->name('parent-links.link');
+    Route::delete('parent-links', [ParentLinkController::class, 'unlink'])->name('parent-links.unlink');
 
     // Academic Years
     Route::get('academic-years', [AcademicYearController::class, 'index'])->name('academic-years.index');

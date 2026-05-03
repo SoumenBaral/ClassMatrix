@@ -6,6 +6,8 @@ use App\Enums\UserStatus;
 use App\Enums\UserType;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -50,6 +52,29 @@ class User extends Authenticatable
     public function student(): HasOne
     {
         return $this->hasOne(Student::class);
+    }
+
+    public function routinePreference(): HasOne
+    {
+        return $this->hasOne(RoutinePreference::class);
+    }
+
+    public function routines(): HasMany
+    {
+        return $this->hasMany(Routine::class);
+    }
+
+    public function aiChats(): HasMany
+    {
+        return $this->hasMany(AiChat::class);
+    }
+
+    // Parent → children (students)
+    public function children(): BelongsToMany
+    {
+        return $this->belongsToMany(Student::class, 'parent_student', 'parent_id', 'student_id')
+            ->withPivot('relation', 'is_primary')
+            ->withTimestamps();
     }
 
     public function staff(): HasOne
