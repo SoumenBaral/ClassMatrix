@@ -7,6 +7,9 @@ Route::inertia('/', 'Welcome', [
     'canRegister' => Features::enabled(Features::registration()),
 ])->name('home');
 
+// 3D pipeline test — remove after Phase 1 verification
+Route::inertia('/test-3d', 'Test3D')->name('test-3d');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         $user = auth()->user();

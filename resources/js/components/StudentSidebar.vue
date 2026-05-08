@@ -3,10 +3,15 @@ import { Link } from '@inertiajs/vue3';
 import {
     BookOpen,
     Bot,
+    Brain,
     Calendar,
+    CalendarCheck,
+    ClipboardList,
+    Clock,
     LayoutGrid,
-    MessageCircle,
     Settings,
+    Sparkles,
+    Trophy,
 } from 'lucide-vue-next';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
@@ -23,14 +28,23 @@ import {
 } from '@/components/ui/sidebar';
 import type { NavItem } from '@/types';
 
-const mainNavItems: NavItem[] = [
+const mySpaceItems: NavItem[] = [
     { title: 'Dashboard', href: '/student/dashboard', icon: LayoutGrid },
-    { title: 'My Routine', href: '/student/routines', icon: Calendar },
-    { title: 'Preferences', href: '/student/routines/preferences', icon: Settings },
+    { title: 'Timetable', href: '/student/timetable', icon: Clock },
 ];
 
-const aiNavItems: NavItem[] = [
+const academicItems: NavItem[] = [
+    { title: 'Assignments', href: '/student/assignments', icon: ClipboardList },
+    { title: 'Quizzes', href: '/student/quizzes', icon: Brain },
+    { title: 'Lessons', href: '/student/lessons', icon: BookOpen },
+    { title: 'Results', href: '/student/results', icon: Trophy },
+    { title: 'Attendance', href: '/student/attendance', icon: CalendarCheck },
+];
+
+const aiItems: NavItem[] = [
     { title: 'AI Teacher', href: '/student/chat', icon: Bot },
+    { title: 'My Routine', href: '/student/routines', icon: Sparkles },
+    { title: 'Preferences', href: '/student/routines/preferences', icon: Settings },
 ];
 
 const footerNavItems: NavItem[] = [
@@ -53,8 +67,9 @@ const footerNavItems: NavItem[] = [
         </SidebarHeader>
 
         <SidebarContent>
-            <NavMain :items="mainNavItems" label="My Space" />
-            <NavMain :items="aiNavItems" label="AI Assistant" />
+            <NavMain :items="mySpaceItems" label="My Space" />
+            <NavMain :items="academicItems" label="Academics" />
+            <NavMain :items="aiItems" label="AI Assistant" />
         </SidebarContent>
 
         <SidebarFooter>

@@ -83,10 +83,12 @@ class AiChatController extends Controller
             'message' => 'required|string|max:5000',
         ]);
 
-        // ChatService now handles errors gracefully — saves error as assistant message
-        $service->sendMessage($request->user(), $aiChat, $validated['message']);
+        // ChatService handles errors gracefully — saves error as assistant message
+        $aiMessage = $service->sendMessage($request->user(), $aiChat, $validated['message']);
 
-        return back();
+        // Always redirect to the show route explicitly (not back())
+        // This guarantees Inertia re-renders with fresh messages from the DB
+        return redirect()->route('student.chat.show', $aiChat);
     }
 
     public function destroy(AiChat $aiChat): RedirectResponse
